@@ -28,17 +28,8 @@ namespace oop
                 hungry = true;
             }
 
-            public bool Eats()
-            {
-                if (hungry)
-                {   
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            public bool Eats() => hungry;
+            
 
             public double Feed(double foodAmount)
             {
