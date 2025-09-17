@@ -1,22 +1,24 @@
+using System.Linq;
+
 namespace oop
 {
 
     internal class Program
     {
-        
+
         class Cat
         {
             string name;
             double mass;
             bool hungry;
-            
+
 
             public Cat(string name, double mass, bool hungry)
             {
                 this.name = name;
                 this.mass = mass;
                 this.hungry = hungry;
-                
+
             }
 
             public Cat()
@@ -28,15 +30,24 @@ namespace oop
                 hungry = true;
             }
 
-            public bool Eats() => hungry;
-            
+            public bool Eats()
+            {
+                if (mass <= 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
             public double Feed(double foodAmount)
             {
-                
+
                 if (hungry)
                 {
-                    Console.WriteLine("Do you want to feed her?");
+                    Console.WriteLine($"Do you want to feed {name}?");
                     Console.WriteLine("y/n");
                     string y = "y";
                     string n = "n";
@@ -67,13 +78,20 @@ namespace oop
             }
 
 
-          
+
+            public double GetMass()
+            {
+                return mass;
+            }
+
+
+
             public bool RunsAround()
             {
-                if (mass >= 4)
+                if (mass >= 1)
                 {
-                    Console.WriteLine("The cat is running around!");
-                    mass -= 0.1;
+                    Console.WriteLine($"The fattest cat, {name} is running around!");
+                    mass -= 1;
                     if (mass <= 0)
                     {
                         mass = 0;
@@ -82,13 +100,12 @@ namespace oop
                     }
                     return true;
                 }
-                else 
+                else
                 {
                     Console.WriteLine("Unfortunately the cat cannot run around...");
-                    return false; 
+                    return false;
                 }
             }
-
 
 
 
@@ -96,7 +113,7 @@ namespace oop
             public string State()
             {
                 string hun = "";
-                if (Eats())
+                if (hungry)
                 {
                     hun = "hungry";
                 }
@@ -110,19 +127,38 @@ namespace oop
 
         }
 
-        
+            static void Main(string[] args)
+            {
+                Cat[] cats = new Cat[3];
+                for (int i = 0; i < cats.Length; i++)
+                {
+                    cats[i] = new Cat();
+                }
+                Console.WriteLine("Lets feed these cats: ");
+                double fattestCat = cats[0].GetMass();
+                for (int i = 0; i < cats.Length; i++)
+                {
+                    if (cats[i].Eats())
+                    {
+                        Console.WriteLine(cats[i].State());
+                        cats[i].Feed(1);
+                    }
+                    if (cats[i].GetMass() > fattestCat)
+                    {
+                        fattestCat = cats[i].GetMass();
+                    }
+                }
+                
 
-
-        static void Main(string[] args)
-        {
-            Cat cat1 = new Cat();
-            cat1.Feed(1);
-            cat1.RunsAround();
-            Cat cat2 = new Cat();
-            cat2.Feed(1);
-            cat2.RunsAround();
-            cat1.State();
-            cat2.State();
-        }
+                for (int i = 0; i < cats.Length; i++)
+                {
+                    if (cats[i].GetMass() == fattestCat)
+                    { 
+                        cats[i].RunsAround();
+                        Console.WriteLine($"The mass of the cat now is {cats[i].GetMass()}");
+                    }
+                }
+                
+            }
     }
 }
