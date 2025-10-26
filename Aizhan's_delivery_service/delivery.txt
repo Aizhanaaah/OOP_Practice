@@ -1,0 +1,13 @@
+Eclipsera;10
+Hyperionex;8
+Quantaflow;12
+Infinitron;20
+Hyperionex;8
+Eclipsera;10
+Infinitron;20
+Synthara;14
+Quantaflow;12
+Synthara;14
+Eclipsera;10
+Synthara;14
+Infinitron;20
