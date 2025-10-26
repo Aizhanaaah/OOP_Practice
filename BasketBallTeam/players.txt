@@ -1,0 +1,10 @@
+John;point_guard
+Joe;shooting_guard
+Jack;small_forward
+Johnny;power_forward
+Jessy;center
+Jill;point_guard
+Jonathan;shooting_guard
+Jeremy;small_forward
+Jacobi;power_forward
+Jonah;center
