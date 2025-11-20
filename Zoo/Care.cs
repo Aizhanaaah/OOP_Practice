@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Zoo
 {
@@ -15,7 +16,8 @@ namespace Zoo
         public DateTime CareDate 
         { 
             get { return careDate; } 
-            set { if(careDate.Year < 2025) 
+            set { if(value.Year > DateTime.Now.Year)
+                    throw new ArgumentException("Care date cannot be in the future.");
                 careDate = value; }
         }
         public Care(string animal, string careType, DateTime careDate)
@@ -24,7 +26,14 @@ namespace Zoo
             CareType = careType;
             CareDate = careDate;
         }
-        string showInfo()
+        public Care(string line)
+        {
+            string[] distribution = line.Split(";");
+            Animal = distribution[0];
+            CareType = distribution[1];
+            CareDate = DateTime.Parse(distribution[2]);
+        }
+        public string showInfo()
         {
             return $"Animal: {Animal}, Care Type: {CareType}, Care Date: {CareDate.ToShortDateString()}";
         }
