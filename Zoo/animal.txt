@@ -1,0 +1,4 @@
+Leo;Lion;2020-05-12;Bekbolot
+Shirchoo;Tiger;2019-11-03;Aigerim
+Bublik;Hyena;2021-07-20;Tilek
+Akku;Eagle;2018-02-14;Maksat
