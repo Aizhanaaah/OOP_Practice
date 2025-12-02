@@ -4,7 +4,7 @@ namespace Zoo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            //method to count number of lines in a file to prepare for reading it:
             int NumOfLines(string filename)
             {
                 StreamReader f = new StreamReader(filename);
@@ -20,8 +20,11 @@ namespace Zoo
             int lnAnimals = NumOfLines("animal.txt");
             int lnCare = NumOfLines("care.txt");
 
+            //methods to read and list all animals and care data from the file:
+
             void ListOfAnimals()
             {
+                int lnAnimals = NumOfLines("animal.txt");
                 StreamReader f = new StreamReader("animal.txt");
                 Animal[] animals = new Animal[lnAnimals];
                 for (int i = 0; i < lnAnimals; i++)
@@ -33,6 +36,7 @@ namespace Zoo
             }
             void ListOfCare()
             {
+                int lnCare = NumOfLines("care.txt");
                 StreamReader f = new StreamReader("care.txt");
                 Care[] cares = new Care[lnCare];
                 for (int i = 0; i < lnCare; i++)
@@ -41,6 +45,34 @@ namespace Zoo
                     Console.WriteLine(cares[i].showInfo());
                 }
                 f.Close();
+            }
+            //methods to modify caretaker of an animal and care type of a care record:
+
+            void ModifyCareTaker()
+            {
+                Console.Write("which animal's caretaker you want to change: ");
+                string name = Console.ReadLine();
+                StreamReader f = new StreamReader("animal.txt");
+                Animal[] animals = new Animal[lnAnimals];
+                for (int i = 0; i < lnAnimals; i++)
+                {
+                    animals[i] = new Animal(f.ReadLine());
+                    if (animals[i].Name == name)
+                    {
+                        Console.WriteLine("current care taker is: {0}", animals[i].Caretaker);
+                        Console.Write("your change: ");
+                        string change = Console.ReadLine();
+                        animals[i].Caretaker = change;
+                        Console.WriteLine("changed as {0}", animals[i].Caretaker);
+                    }
+                }
+                f.Close();
+                StreamWriter fw = new StreamWriter("animal.txt", false);
+                foreach (Animal a in animals)
+                {
+                    fw.WriteLine($"{a.Name};{a.Species};{a.BirthDate}:{a.Caretaker}");
+                }
+                fw.Close();
             }
 
             void ModifyCareType()
@@ -62,7 +94,7 @@ namespace Zoo
                     }
                 }
                 f.Close();
-                StreamWriter fw = new StreamWriter("care", false);
+                StreamWriter fw = new StreamWriter("care.txt", false);
                 foreach (Care c in cares)
                 {
                     fw.WriteLine($"{c.Animal};{c.CareType};{c.CareDate}");
@@ -70,6 +102,7 @@ namespace Zoo
                 fw.Close();
             }
 
+            //methods to add new animal and care records to the file:
             void AddNewAnimal()
             {
                 Console.Write("New animal name:");
@@ -84,13 +117,7 @@ namespace Zoo
                 string line = $"{newName};{newType};{newDate};{newCaretaker}";
                 f.WriteLine(line);
                 f.Close();
-                Animal[] animals = new Animal[lnAnimals];
-                StreamWriter fw = new StreamWriter("animal.txt", false);
-                foreach (Animal a in animals)
-                {
-                    fw.WriteLine($"{a.Name};{a.Species};{a.BirthDate};{a.Caretaker}");
-                }
-                fw.Close();
+                Animal[] animals = new Animal[lnAnimals];          
             }
 
             void AddNewCare()
@@ -105,15 +132,45 @@ namespace Zoo
                 string line = $"{newName};{newType};{newDate}";
                 f.WriteLine(line);
                 f.Close();
-                Care[] cares = new Care[lnCare];
-                StreamWriter fw = new StreamWriter("care.txt", false);
-                foreach (Care c in cares)
-                {
-                    fw.WriteLine($"{c.Animal};{c.CareType};{c.CareDate}");
-                }
-                fw.Close();
+                Care[] cares = new Care[lnCare];   
             }
+            //user interface:
+            Console.WriteLine("Hello, World!");
+            Console.WriteLine("1. List the animals");
+            Console.WriteLine("2. List the care");
+            Console.WriteLine("3. Append a new animal");
+            Console.WriteLine("4. Append a new care");
+            Console.WriteLine("5. Change the caretaker of an animal");
+            Console.WriteLine("6. Modify the care type");
+            while (true)
+            {
+                Console.Write("choose one task:");
+                int taskNum = int.Parse(Console.ReadLine());
 
+                switch (taskNum)
+                {
+                    case 1:
+                        ListOfAnimals();
+                        break;
+                    case 2:
+                        ListOfCare();
+                        break;
+                    case 3:
+                        AddNewAnimal();
+                        break;
+                    case 4:
+                        AddNewCare();
+                        break;
+                    case 5:
+                        ModifyCareTaker();
+                        break;
+                    case 6:
+                        ModifyCareType();
+                        break;
+                    default: break;
+                    case 0: break;
+                }
+            }
         }
     }
 }
