@@ -9,8 +9,10 @@ namespace Zoo
 {
     internal class Care
     {
+        //data field of the class Care:
         string animal, careType;
         DateTime careDate;
+        //Setting properties for the data fields:
         public string Animal { get { return animal; } set { animal = value; } }
         public string CareType { get { return careType; } set {careType = value; } }
         public DateTime CareDate 
@@ -20,6 +22,7 @@ namespace Zoo
                     throw new ArgumentException("Care date cannot be in the future.");
                 careDate = value; }
         }
+        //constructors of the class Care:
         public Care(string animal, string careType, DateTime careDate)
         {
             Animal = animal;
@@ -33,6 +36,7 @@ namespace Zoo
             CareType = distribution[1];
             CareDate = DateTime.Parse(distribution[2]);
         }
+        //method to demonstarte data for objects:
         public string showInfo()
         {
             return $"Animal: {Animal}, Care Type: {CareType}, Care Date: {CareDate.ToShortDateString()}";
