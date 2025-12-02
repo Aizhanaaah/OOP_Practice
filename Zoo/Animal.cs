@@ -9,8 +9,10 @@ namespace Zoo
 {
     internal class Animal: ICareTaking
     {
+        //data field of the class Animal:
         string name, species, caretaker;
         DateTime birthDate;
+        //Setting properties for the data fields:
         public string Name { get { return name; } set { name = value; } }
         public string Species { get { return species; } set { species = value; } }
         public string Caretaker { get { return caretaker; } set { caretaker = value; } }
@@ -21,6 +23,7 @@ namespace Zoo
                     throw new ArgumentException("Birth date cannot be in the future.");
                 birthDate = value; } 
         }
+        //constructors of the class Animal:
         public Animal(string name, string species, string caretaker, DateTime birthDate)
         {
             Name = name;
@@ -36,6 +39,8 @@ namespace Zoo
             BirthDate = DateTime.Parse(distribution[2]);
             Caretaker = distribution[3];
         }
+
+        //implementation of the interface ICareTaking:
         public virtual void AddCare()
         {
             Console.WriteLine($"Care added for {Name}.");
@@ -44,6 +49,7 @@ namespace Zoo
         {
             Console.WriteLine($"Care removed for {Name}.");
         }
+        //method to demonstarte data for objects:
         public virtual string showInfo()
         {
             return $"Name: {Name}, Species: {Species}, Caretaker: {Caretaker}, Birth Date: {BirthDate.ToShortDateString()}";
